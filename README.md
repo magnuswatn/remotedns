@@ -6,8 +6,8 @@ This is a silly little thing that exposes DNS lookups over a REST API, so that y
 
 #### Server
 
-A Python Flask app that can run in a Docker container on a remote computer. Must be placed behind a reverse proxy (Apache/nginx/Caddy) that does https and basic auth.
+A Python Flask app that can run in a Docker container on a remote computer. Must be placed behind [Caddy](https://caddyserver.com/) with the [jwt plugin](https://caddyserver.com/docs/http.jwt).
 
 #### Client
 
-A Powershell module that talkes to the server via https. To use it, you need to define the following variables in your Powershell profile: ResolveDnsNameFromRemote_Username, ResolveDnsNameFromRemote_Password and ResolveDnsNameFromRemote_URL.
+A Powershell module that talkes to the server via https. To use it, you need to define the following variables in your Powershell profile: ResolveDnsNameFromRemote_JWT and ResolveDnsNameFromRemote_URL.

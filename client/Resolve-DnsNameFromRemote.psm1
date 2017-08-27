@@ -56,8 +56,7 @@ Function Resolve-DnsNameFromRemote {
         }
     }
 
-    $basicauth = [System.Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes("$($ResolveDnsNameFromRemote_Username):$($ResolveDnsNameFromRemote_Password)"))
-    $basicauthheader = @{Authorization = "Basic $($basicauth)"}
+    $authHeader = @{Authorization = "Bearer $($ResolveDnsNameFromRemote_JWT)"}
 
     $URI = "$($ResolveDnsNameFromRemote_URL)/$($Type)/$($Name)" -replace "(?<!:)\/\/", "/" # ugly hack to avoid double slashes
     if ($Server) {
@@ -65,14 +64,14 @@ Function Resolve-DnsNameFromRemote {
     }
 
     try {
-        $answer = Invoke-RestMethod -Uri $URI -Headers $basicauthheader
+        $answer = Invoke-RestMethod -Uri $URI -Headers $authHeader
     } catch {
         throw
     } finally {
         [Net.ServicePointManager]::SecurityProtocol = $oldtlsprotocols
     }
 
-    $answer.answer | foreach {
+    $answer.answer | ForEach-Object {
         "$_"
     }
     

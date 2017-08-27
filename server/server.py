@@ -40,7 +40,7 @@ def resolve_nameserver(nameserver):
     else:
         return nameserver
 
-@app.route("/api/dns/<record_type>/<record>", methods=['GET'])
+@app.route("/dns/<record_type>/<record>", methods=['GET'])
 def dns_service(record_type, record):
     """Accepts requests from clients and returns the result of the lookup"""
     try:
